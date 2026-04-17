@@ -1,2 +1,4 @@
 # 483_ML_Project
 ML project for a geoscience problem in EAE 483 in the spring of 2026. 
+
+The goal of this project is to produce a map that predicts Days 1-5 maximum binned hail size using a random forest model. This model is trained, validated, and tests on GEFSv12 Reforecast data and Storm Prediction Center hail reports from 2000-2019.
