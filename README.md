@@ -20,9 +20,11 @@ The prediction of hail size remains a challenge at both the short range/storm sc
 
 ## Data and Methods
 
-The goal of this project is to produce an eastern CONUS map that shows smoothed max hail size bins, highlighting where the largest hail may occur. This product will not necessarily consider potential realization of convective storms but rather will be environmentally based with thermodynamic and kinematic fields. This tool will be designed to only be run in the spring and summer. In an operational setting, areas that stand out can be examined to assess potential for such a scenario to unfold in a region. The data that will be used to train the ML model is the Global Ensemble Forecast System Version 12 (GEFSv12) reforecast data paired with the historical hail reports archive from the Storm Prediction Center (SPC). GEFSv12 reforecast data is stored on AWS with 4x daily runs and 5 member (one control member and four perturbed members) from 2000-2019 (AWS). The GEFSv12 reforecast runs that we will be choosing will be the 00 UTC cycle only, May 1 00 UTC – June 1 00 UTC, as the eventual live data will also be chosen from the 00 UTC cycle. Reforecast data contains basic atmospheric variables (u wind, v wind, vertical velocity, temperature, height, and specific humidity) at 25 pressure levels from 1000 hPa up to 1 hPa. The reforecast data is stored in two separate files for each run, one for variables below 700 hPa and another for variables above 500 hPa. Horizontal resolution below 700 hPa is 0.25° and above 700 hPa is 0.50°. The GEFS data was converted to much smaller daily .nc files and regionally confined to the eastern CONUS. Hail report data is stored in .csv files on the SPC website (SPC). These exist in individual files for years and decades, but also in one single zip file for all years back to 1950. For simplicity, we downloaded the full file and then filtered to the period we choose to match with our GEFSv12 reforecast data. The data that the tool will run on in real-time will be the GEFS model, also stored on AWS. This version of the GEFS contains 31 members (one control member and 30 perturbed members), as well as mean values across all members. In the mean data files (formatted as grib2), there are 85 parameters available to choose from at different pressure levels and heights. The GEFSv12 reforecast data are downloaded via a custom script while live GEFS data is obtained via the Herbie package. Pandas was used to open the hail report database. Cartopy and matplotlib are used to build output maps. Scikit-learn will be used to train an ML model, most likely a random forest classification model. This may be the best option as it works well with gridded data and can output binned data. To provide an environment to the ML model, we downloaded and computed the following parameters:
-	Surface-based convective available potential energy (SBCAPE)
-	850-250 hPa bulk wind difference (BWD)
+The goal of this project is to produce an eastern CONUS map that shows smoothed max hail size bins, highlighting where the largest hail may occur. This product will not necessarily consider potential realization of convective storms but rather will be environmentally based with thermodynamic and kinematic fields. This tool will be designed to only be run in the spring and summer. In an operational setting, areas that stand out can be examined to assess potential for such a scenario to unfold in a region. The data that will be used to train the ML model is the Global Ensemble Forecast System Version 12 (GEFSv12) reforecast data paired with the historical hail reports archive from the Storm Prediction Center (SPC). GEFSv12 reforecast data is stored on AWS with 4x daily runs and 5 member (one control member and four perturbed members) from 2000-2019 (AWS). The GEFSv12 reforecast runs that we will be choosing will be the 00 UTC cycle only, May 1 00 UTC – May 31 00 UTC, as the eventual live data will also be chosen from the 00 UTC cycle. Reforecast data contains basic atmospheric variables (u wind, v wind, vertical velocity, temperature, height, and specific humidity) at 25 pressure levels from 1000 hPa up to 1 hPa. The reforecast data is stored in two separate files for each run, one for variables below 700 hPa and another for variables above 500 hPa. Horizontal resolution below 700 hPa is 0.25° and above 700 hPa is 0.50°. The GEFS data was converted to much smaller daily .nc files and regionally confined to the eastern CONUS. Hail report data is stored in .csv files on the SPC website (SPC). These exist in individual files for years and decades, but also in one single zip file for all years back to 1950. For simplicity, we downloaded the full file and then filtered to the period we choose to match with our GEFSv12 reforecast data. The data that the tool will run on in real-time will be the GEFS model, also stored on AWS. This version of the GEFS contains 31 members (one control member and 30 perturbed members), as well as mean values across all members. In the mean data files (formatted as grib2), there are 85 parameters available to choose from at different pressure levels and heights. The GEFSv12 reforecast data are downloaded via a custom script while live GEFS data is obtained via the Herbie package. Pandas was used to open the hail report database. Cartopy and matplotlib are used to build output maps. Scikit-learn will be used to train an ML model, most likely a random forest classification model. This may be the best option as it works well with gridded data and can output binned data. To provide an environment to the ML model, we downloaded and computed the following parameters:
+	
+	- Surface-based convective available potential energy (SBCAPE)
+	
+	- 850-250 hPa bulk wind difference (BWD)
 
   
 The ML model will likely be trained on 2000-2015 data and validated/tested on 2016-2019 data from the GEFSv12 reforecast and SPC hail reports. 
@@ -61,35 +63,54 @@ Triple-I: Severe Convective Storms Generate More Than $50B in Insured Losses for
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
-PR-01.A: Download GEFSv12 Reforecast Data (grib2 files)
+*PR-01.A: Download GEFSv12 Reforecast Data (grib2 files)*
+
 Priority: High
+
 Sprint: 1
+
 Assigned to: Landon
+
 As a developer of a machine learning model, I need to gather an analysis dataset so I have data that I can train my model on.
-Acceptance Criteria:
-Downloaded files must be in grib2 format and be subset to 00z initialized runs between May 1, 2000 and June 1, 2019.
+
+Acceptance Criteria: Downloaded files must be in grib2 format and be subset to 00z initialized runs between May 1, 2000 and May 31, 2019.
+
 Status: Completed
 
-PR-01.B: Download SPC Hail Reports (csv files)
+*PR-01.B: Download SPC Hail Reports (csv files)*
+
 Priority: High
+
 Sprint: 1
+
 Assigned to: Samantha
+
 As a developer of a machine learning model, I need to gather a secondary analysis dataset so I have data that I can train my model on.
-Acceptance Criteria:
-Downloaded files must be in csv format and be subset to 2000-2019.
+
+Acceptance Criteria: Downloaded files must be in csv format and be subset to 2000-2019.
+
 Status: Completed
 
-PR-02: Subset GEFSv12 Data Regionally into netCDF Files
+*PR-02: Subset GEFSv12 Data Regionally into netCDF Files*
+
 Priority: High
+
 Sprint: 1
+
 Assigned to: Landon
+
 As a developer of a machine learning model, I need to reduce the size of data required and make it easier to work with.
+
 Acceptance Criteria:
+
 •	Dataset must be output as a .nc file and stored in the EAE Triton scratch folder.
+
 •	Dataset must be a significantly smaller size than when in .grib2 form.
+
 •	Dataset must be centered over the eastern Contiguous United States.
 
 Automatic Test: Check the size of output files and plot a spatial map of a variable to make sure it is over the correct area.
+
 Status: Completed
 
 PR-03: Calculate Variables from GEFSv12 Reforecast Data with MetPy
