@@ -64,17 +64,17 @@ Triple-I: Severe Convective Storms Generate More Than $50B in Insured Losses for
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 | *PR-01.A: Download GEFSv12 Reforecast Data (grib2 files)* |
-||
+ -----------------------------------------------------------
 | Priority: High |
-||
+ -----------------------------------------------------------
 | Sprint: 1 |
-||
+ -----------------------------------------------------------
 | Assigned to: Landon |
-||
+ -----------------------------------------------------------
 | As a developer of a machine learning model, I need to gather an analysis dataset so I have data that I can train my model on. |
-||
+ -----------------------------------------------------------
 | Acceptance Criteria: Downloaded files must be in grib2 format and be subset to 00z initialized runs between May 1, 2000 and May 31, 2019. |
-||
+ -----------------------------------------------------------
 | Status: Completed |
 
 *PR-01.B: Download SPC Hail Reports (csv files)*
