@@ -45,7 +45,7 @@ Results of the machine learning model are yet to come. This section will be popu
 
 The motivation for this project is to improve the detection of large hail risk at the short and medium range with a daily maximum hail size map. Because the largest contribution of insured losses from severe storms is associated with damaging hail, it is of interest to highlight areas where this peril may exist. Predicting maximum potential hail size for short-fused severe thunderstorm or tornado warnings is difficult, let alone for the forecast days in advance. The goal is to make some headway on this with the use of a machine learning model. The methods of this project are fairly simple. We use 620 days of GEFSv12 reforecast data and thousands of SPC hail reports as data for training, validation, and testing of a random forest classifier model. The machine learning model is to understand relationships between environmental conditions (SBCAPE and 850-250 hPa shear) and large reported hailstones. Then, these relationships are used to predict max hail size maps (binned) across the eastern CONUS by using forecast SBCAPE and wind shear. Again, we will have more on the results of this shortly.
 
-## Works Cited
+## References
 
 Allen, J. T., I. M. Giammanco, M. R. Kumjian, H. Jurgen Punge, Q. Zhang, P. Groenemeijer, M. Kunz, and K. Ortega, 2020: Understanding Hail in the Earth System. Reviews of Geophysics, 58, e2019RG000665, https://doi.org/10.1029/2019RG000665.
 
