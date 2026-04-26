@@ -1,4 +1,4 @@
-# Predicting Days 1-5 Maximum Hail Size with GEFS: A Machine Learning Approach
+# Predicting Significant Hail Environments with GEFS: A Machine Learning Approach
 
 Samantha Harrison and Landon Moeller
 
