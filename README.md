@@ -68,7 +68,7 @@ The main area where we could envision issues arising is the collection of refore
 This RF classifier model was configured to be trained with 50 shallow decision trees that has leaves with at least 5 samples (Fig. 1). Each of these trees was trained on 70% of the train subset and the hail classes were re-weighted to reduce the effect of the significant proportion of zeroes in the dataset. This configuration was designed to be less computationally expensive. The model was trained on CAPE and shear and used them to predict the target, which was significant hail. There were two outputs of this model, one being the probability of a favorable significant hail environment, and the other being the predicted significant hail class. These output maps are side by side subplots available for any day in the testing dataset in which significant hail is observed in the SPC database (Fig. 2). Running through these different days showed wide varying solutions, from some properly catching the narrow channel in which significant hail occurred to missing entirely. The cases where significant hail occurred outside of the highest probability area, especially when to the north, are likely a direct consequence of not considering the most-unstable parcel in the lowest 300 hPa. This means that many instances of significant hail from elevated thunderstorms were missed entirely, as SBCAPE is often near zero in these elevated environments (Bunkers et al. 2002). The use of SBCAPE was one of the major limitations of this project, and the effects of it are seen in the output.
 
 <p align="center">
-  <img src="images/RF_model.png" width="850">
+  <img src="images/RF_model.jpg" width="850">
 </p>
 
 The threshold of 80% probability was used to consider grid points to be significant hail, as backed by threshold testing conducted with the validation subset. The model performed poorly at predicting significant hail, as expected. This is because 99% of the dataset was non-significant grid (zeroes from the class perspective). The poor performance is a result of class imbalance in the dataset, leading to misleading results in the confusion matrix and performance summary (Luque et al. 2019). The model did well at predicting zeroes, but that is not what the target of this project was. According to the recall of 46.5%, just under half of significant hail events were predicted by the model (Fig. 3). On the other hand, only 2.6% of predicted significant hail events were correct. This is exactly what was expected, given that no precipitation nor convective precipitation variable was considered. This is common when examining environments separately from storm occurrence (Tippett et al. 2015). The accuracy of 93.6% is misleading in this sense, as the vast majority of that comes from predicting a non-significant label.
@@ -191,6 +191,5 @@ Triple-I: Severe Convective Storms Generate More Than $50B in Insured Losses for
 
 GEFSv12 Reforecast Data: https://noaa-gefs-retrospective.s3.amazonaws.com/index.html
 
-Live GEFS Forecasts: https://noaa-gefs-pds.s3.amazonaws.com/index.html
 
 SPC Hail Reports: https://www.spc.noaa.gov/wcm/#data
