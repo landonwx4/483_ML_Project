@@ -195,7 +195,7 @@ Triple-I: Severe Convective Storms Generate More Than $50B in Insured Losses for
 | As a developer of a machine learning model, we need to create separate datasets from the original hail data to train the model and verify and test its function to ensure it produces accurate results. |
 | Acceptance Criteria:<br>• Hail dataset must be split into three separate datasets based on years.<br>• Each individual dataset must be appropriately scaled in terms of size, such as the 70/10/20 rule. Model will be trained on earlier data and tested on more recent data.<br>• Datasets should roughly match overall distribution to confirm legitimacy and avoid biases |
 | Automatic Test: Create a script that will generate statistics on each of the three datasets. If statistics do not match well enough, we will revise. |
-| Status: In Progress |
+| Status: Completed |
 
 | PR-05: Format GEFSv12 Reforecast Data and SPC Hail Reports for RF-Classification model |
 |---|
@@ -205,7 +205,7 @@ Triple-I: Severe Convective Storms Generate More Than $50B in Insured Losses for
 | As a developer of a machine learning model, I need to format the data in order to develop and train my model. |
 | Acceptance Criteria:<br>• Reforecast Data and SPC hail reports must be reduced to only what is necessary<br>• We will keep only the years and variables that are needed for the model<br>• Data should be formatted into a csv file that can be inputted into the scikit-learn RF framework |
 | Automatic Test: Create a script that reads the csv file and checks if all fields/data are present. If not, generate an error showing what is missing. |
-| Status: In Progress |
+| Status: Completed |
 
 | PR-06: Train & Validate RF-Classification model |
 |---|
@@ -215,7 +215,7 @@ Triple-I: Severe Convective Storms Generate More Than $50B in Insured Losses for
 | As a developer of a machine learning model, we need to train the model using the hail report data and variables so we can predict maximum hail sizes based on weather conditions. |
 | Acceptance Criteria:<br>• RF model should use scikit-learn<br>• Model output should be formatted in such a way that the model will display its predicted hail sizes as atmospheric data is entered. |
 | Automatic Test: Create a script that tests model output for desired output (i.e. predicted hail size, affected areas, etc.) |
-| Status: To Be Completed |
+| Status: Completed |
 
 | PR-07: Test RF-Classification model |
 |---|
@@ -225,7 +225,7 @@ Triple-I: Severe Convective Storms Generate More Than $50B in Insured Losses for
 | As a developer of a machine learning model, I need to test the model using a fraction of my reforecast data, so I know how well my model does at predicting max hail size at different lead times. |
 | Acceptance Criteria:<br>• Model output must be plotted on a map<br>• SPC hail reports should be plotted on the same map |
 | Automatic Test: Write a script that plots model output with SPC hail reports overlaid to check for spatial accuracy. |
-| Status: To Be Completed |
+| Status: Completed |
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
