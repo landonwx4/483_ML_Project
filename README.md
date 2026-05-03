@@ -42,7 +42,9 @@ We used a configuration of the RF classifier model that was not too computationa
 | Pandas          | Reading Tabular Data | Good (3/4)       | Have used this in the past for lessons/labs and for basic reading   |
 | Overall Team    | Combined Skillset    | Moderate (3/4)   | Strong in visualization, developing in machine learning             |
 
-`Table 1. Assessment of group members' experience with various Python packages.`
+<p align="center">
+  <em>Table 1. Assessment of group members' experience with various Python packages.</em>
+</p>
 
 ## Feasibility and Ambition
 
@@ -61,20 +63,58 @@ The main area where we could envision issues arising is the collection of refore
 | Train the machine learning model | 4 weeks | Poor (1/4) | No group members have trained a machine learning model before, so it is hard to anticipate how long this will take. |
 | Write up the results | 2 weeks | Good (3/4) | Both group members have written up scientific results before and discussed them in a course paper or research article. |
 
-`Table 2. The expected timeline for this project.`
+<p align="center">
+  <em>Table 2. The expected timeline for this project.</em>
+</p>
 
 ## Results
+
+<p align="center">
+  <img src="images/RF_model.jpg" width="900">
+</p>
+
+<p align="center">
+  <em>Figure 1. Random Forest Classifier model configuration.</em>
+</p>
 
 This RF classifier model was configured to be trained with 50 shallow decision trees that has leaves with at least 5 samples (Fig. 1). Each of these trees was trained on 70% of the train subset and the hail classes were re-weighted to reduce the effect of the significant proportion of zeroes in the dataset. This configuration was designed to be less computationally expensive. The model was trained on CAPE and shear and used them to predict the target, which was significant hail. There were two outputs of this model, one being the probability of a favorable significant hail environment, and the other being the predicted significant hail class. These output maps are side by side subplots available for any day in the testing dataset in which significant hail is observed in the SPC database (Fig. 2). Running through these different days showed wide varying solutions, from some properly catching the narrow channel in which significant hail occurred to missing entirely. The cases where significant hail occurred outside of the highest probability area, especially when to the north, are likely a direct consequence of not considering the most-unstable parcel in the lowest 300 hPa. This means that many instances of significant hail from elevated thunderstorms were missed entirely, as SBCAPE is often near zero in these elevated environments (Bunkers et al. 2002). The use of SBCAPE was one of the major limitations of this project, and the effects of it are seen in the output.
 
 <p align="center">
-  <img src="images/RF_model.jpg" width="850">
+  <img src="images/Model_Output.png" width="900">
+</p>
+
+<p align="center">
+  <em>Figure 2. An example of the model map output, with observed SPC gridded significant hail reports (left) and predicted probability of a favorable significant hail environment (right). The 80% probability threshold is contoured on both subplots.</em>
 </p>
 
 The threshold of 80% probability was used to consider grid points to be significant hail, as backed by threshold testing conducted with the validation subset. The model performed poorly at predicting significant hail, as expected. This is because 99% of the dataset was non-significant grid (zeroes from the class perspective). The poor performance is a result of class imbalance in the dataset, leading to misleading results in the confusion matrix and performance summary (Luque et al. 2019). The model did well at predicting zeroes, but that is not what the target of this project was. According to the recall of 46.5%, just under half of significant hail events were predicted by the model (Fig. 3). On the other hand, only 2.6% of predicted significant hail events were correct. This is exactly what was expected, given that no precipitation nor convective precipitation variable was considered. This is common when examining environments separately from storm occurrence (Tippett et al. 2015). The accuracy of 93.6% is misleading in this sense, as the vast majority of that comes from predicting a non-significant label.
 
+<p align="center">
+  <img src="images/Confusion_Matrix.png" width="900">
+</p>
+
+<p align="center">
+  <em>Figure 3. The confusion matrix for this model by non-significant and significant hail.</em>
+</p>
+
+
+<p align="center">
+  <img src="images/Learned_Environment.png" width="900">
+</p>
+
+<p align="center">
+  <em>Figure 4. A scatter plot of predicted SBCAPE and 850-250 hPa shear, colored by predicted probability of a favorable significant hail environment. Probability contours are overlaid.</em>
+</p>
 
 Our model was able to effectively learn the relationship between kinematic + thermodynamic fields and significant hail, as noted by the increase in probabilities for a favorable significant hail environment as CAPE and shear increase (Fig. 4). This indicates that the model has found a positive correlation between these, though certainly not in a perfect linear manner (Lin and Kumjian 2022). For example, higher probabilities extend towards lower values of CAPE most when shear is higher, indicating the detection of high-shear low-CAPE compensation (Sherburn and Parker 2014). Once CAPE increase beyond 1000-1500 J/kg, the model becomes less reliant upon shear and more upon CAPE, as noted by the clockwise turn in the “elbow” of the probability contours. This dependence upon higher CAPE for significant hail environments is also seen when examining the CAPE and shear distributions between observed/predicted and non-significant/significant hail (Fig. 5).
+
+<p align="center">
+  <img src="images/Ditribution.png" width="900">
+</p>
+
+<p align="center">
+  <em>Figure 5. The SBCAPE (left) and 850-250 hPa shear (right) distributions between observed and predicted non-significant hail and significant hail.</em>
+</p>
 
 
 ## Summary
