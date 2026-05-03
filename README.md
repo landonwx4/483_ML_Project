@@ -33,7 +33,7 @@ The data that will be used to train the ML model is the Global Ensemble Forecast
 We used a configuration of the RF classifier model that was not too computationally expensive but not too limited either. No parameter testing was conducted. The ML model was trained on 2000-2013 data, validated on 2014-2016 data, and tested on 2017-2019 data from the GEFSv12 reforecast and SPC hail reports. This was a simple dataset segmentation rather than use of a train/test splitting function.
 
 
-| Python Tool     | Purpose              | Experience Level | Notes                                                                 |
+| **Python Tool**     | **Purpose**              | **Experience Level** | **Notes**                                                                 |
 |-----------------|----------------------|------------------|----------------------------------------------------------------------|
 | Herbie          | Loading Model Data   | Fair (3/4)       | One group member has experience with loading in HRRR/RAP data       |
 | Scikit-learn    | Machine Learning     | Poor (1/4)       | No experience, just understand the concept                          |
@@ -42,13 +42,26 @@ We used a configuration of the RF classifier model that was not too computationa
 | Pandas          | Reading Tabular Data | Good (3/4)       | Have used this in the past for lessons/labs and for basic reading   |
 | Overall Team    | Combined Skillset    | Moderate (3/4)   | Strong in visualization, developing in machine learning             |
 
+`Table 1. Assessment of group members' experience with various Python packages.`
+
 ## Feasibility and Ambition
 
-This type of project has been done before, except for general severe and hail probabilities instead of maximum potential hail size (Mazurek at al. 2025). Our team generally has the required geoscience knowledge of spatial data, analysis methods, data visualization, and cartography. Our team is mostly comfortable with Python. A lot of data is required for this project. For the training alone, 620 runs of the GEFSv12 reforecast were read in. Each run has 3-hour time increments, which means 40 timesteps total for each variable (F00-F120). As for the hail data, tens of thousands of hail reports will likely be downloaded. For computing, CPU will be needed to process and train the data. Our general understanding of all parts of this project is that a lot of data will need to be read in and processed in python, that a random forest model will most likely be used to train with the data, that testing/validation will need to be done with some of the remaining data, and that the output will be in a concise map form for viewer digestion.
+This type of project has been done before, except for general severe and hail probabilities (Mazurek at al. 2025). Nothing has been conducted yet that explores the favorability of an environment for significant hail. Our team generally has the required geoscience knowledge of spatial data, analysis methods, data visualization, and cartography. Our team is mostly comfortable with Python. A lot of data was required for this project. For the training alone, 620 runs of the GEFSv12 reforecast were read in. Each run has 3-hour time increments, which means 40 timesteps total for each variable (F00-F120). As for the hail data, tens of thousands of hail reports were downloaded. For computing, a CPU was needed to process and train the data. The data download, preprocessing, and model building was done on NIU EAE’s TRITON server, as GEFSv12 raw grib2 files totaled 2 TB in size. Our general understanding of all parts of this project is that a lot of data will need to be read in and processed in python, that a random forest model will most likely be used to train with the data, that testing/validation will need to be done with some of the remaining data, and that the output will be in a concise map form for viewer digestion. 
 
 ## Potential Issues
 
-The main area where we could envision issues arising is the collection of reforecast data and the performance of parameter computations on that data. It would require a lot of niche coding and code run time. If we go with more of a simple approach (ie. less parameters), the fear is that the model would not perform so well, but at least we know we would be able to produce a product with the time that is left in the semester. As of the late semester, the GEFSv12 reforecast data took far longer to download than anticipated.
+The main area where we could envision issues arising is the collection of reforecast data and the performance of parameter computations on that data. It would require a lot of niche coding and code run time. If we go with more of a simple approach (ie. less parameters), the fear is that the model would not perform so well, but at least we know we would be able to produce a product with the time that is left in the semester. If we wanted to do a MUCAPE calculation, it would have to be done at every grid point, at every timestep, and for every initialized run. This is a significant limitation, meaning it will likely not be done. For the computation of wind shear, the only problem that lies in the way is the fact that every other grid point becomes NaN at 700 hPa and above, effectively as a 0.5 deg resolution. To overcome this, we will have to interpolate NaNs and then calculate on the 0.25 deg grid to match the CAPE grid. The challenge that comes with the sparse SPC hail reports is that they are non-continuous and not gridded, meaning they will have to be gridded to match the GEFSv12 for proper incorporation. As of the late semester, the GEFSv12 reforecast data took far longer to download than anticipated.
+
+## Timeline
+
+| **Task** | **Estimate** | **Confidence** | **Notes** |
+|----------|-------------|----------------|-----------|
+| Gather GEFSv12 reforecast data  | 1 week | Good (3/4) | We know that there is a python package made specifically for this purpose |
+| Process GEFSv12 reforecast data and perform calculations | 3 weeks | Fair (2/4) | Our group knows there are grib2 files that will need to have calculations performed on them with Metpy. We will also need to properly select data from the right pressure levels. |
+| Train the machine learning model | 4 weeks | Poor (1/4) | No group members have trained a machine learning model before, so it is hard to anticipate how long this will take. |
+| Write up the results | 2 weeks | Good (3/4) | Both group members have written up scientific results before and discussed them in a course paper or research article. |
+
+`Table 2. The expected timeline for this project.`
 
 ## Results
 
