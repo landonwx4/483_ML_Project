@@ -80,7 +80,7 @@ The main area where we could envision issues arising is the collection of refore
 This RF classifier model was configured to be trained with 50 shallow decision trees that has leaves with at least 5 samples (Fig. 1). Each of these trees was trained on 70% of the train subset and the hail classes were re-weighted to reduce the effect of the significant proportion of zeroes in the dataset. This configuration was designed to be less computationally expensive. The model was trained on CAPE and shear and used them to predict the target, which was significant hail. There were two outputs of this model, one being the probability of a favorable significant hail environment, and the other being the predicted significant hail class. These output maps are side by side subplots available for any day in the testing dataset in which significant hail is observed in the SPC database (Fig. 2). Running through these different days showed wide varying solutions, from some properly catching the narrow channel in which significant hail occurred to missing entirely. The cases where significant hail occurred outside of the highest probability area, especially when to the north, are likely a direct consequence of not considering the most-unstable parcel in the lowest 300 hPa. This means that many instances of significant hail from elevated thunderstorms were missed entirely, as SBCAPE is often near zero in these elevated environments (Bunkers et al. 2002). The use of SBCAPE was one of the major limitations of this project, and the effects of it are seen in the output.
 
 <p align="center">
-  <img src="images/Model_Output.png" width="900">
+  <img src="images/Map_Output.png" width="900">
 </p>
 
 <p align="center">
@@ -109,7 +109,7 @@ The threshold of 80% probability was used to consider grid points to be signific
 Our model was able to effectively learn the relationship between kinematic + thermodynamic fields and significant hail, as noted by the increase in probabilities for a favorable significant hail environment as CAPE and shear increase (Fig. 4). This indicates that the model has found a positive correlation between these, though certainly not in a perfect linear manner (Lin and Kumjian 2022). For example, higher probabilities extend towards lower values of CAPE most when shear is higher, indicating the detection of high-shear low-CAPE compensation (Sherburn and Parker 2014). Once CAPE increase beyond 1000-1500 J/kg, the model becomes less reliant upon shear and more upon CAPE, as noted by the clockwise turn in the “elbow” of the probability contours. This dependence upon higher CAPE for significant hail environments is also seen when examining the CAPE and shear distributions between observed/predicted and non-significant/significant hail (Fig. 5).
 
 <p align="center">
-  <img src="images/Ditribution.png" width="900">
+  <img src="images/Distribution.png" width="900">
 </p>
 
 <p align="center">
